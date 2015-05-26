@@ -27,6 +27,9 @@ group :development, :test do
   gem "rspec-rails", "~> 3.1.0"
   gem "simplecov", require: false
   gem "dotenv-rails"
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
+  gem 'rb-fsevent' if `uname` =~ /Darwin/
 end
 
 group :development, :doc do
