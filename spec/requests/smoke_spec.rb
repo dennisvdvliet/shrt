@@ -28,13 +28,13 @@ describe "SmokeTest", type: :request do
       end
 
       it 'returns a 409 if shortcode is already used' do
+        link =  FactoryGirl.create(:link)
         post_api "/shorten", {url: "http://smshunt.co", shortcode: "axaxax"}.to_json
         expect(response.status).to eq(409)
-
       end
 
       it 'returns a 422 if shortcode fails validation' do
-        post_api "/shorten", {url: "http://smshunt.co", shortcode: "axaxaxaxax"}.to_json
+        post_api "/shorten", {url: "http://smshunt.co", shortcode: "axaxaxa--xax"}.to_json
         expect(response.status).to eq(422)
       end
     end
@@ -50,6 +50,7 @@ describe "SmokeTest", type: :request do
 
     context 'existing shortcode' do
       it 'returns a 302 and redirects' do
+        link =  FactoryGirl.create(:link)
         get_api "/axaxax"
         expect(response.status).to eq(302)
         expect(response).to redirect_to "http://smshunt.co"
@@ -67,7 +68,8 @@ describe "SmokeTest", type: :request do
 
     context 'existing shortcode' do
       it 'returns a 200 and stats for shortcode' do
-        get_api "/axaxax"
+        link =  FactoryGirl.create(:link)
+        get_api "/axaxax/stats"
         expect(response.status).to eq(200)
         # validate output
       end
