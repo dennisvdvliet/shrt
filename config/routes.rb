@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  post 'shorten' => 'link#create'
+  get ':shortcode' => 'link#view'
+  get ':shortcode/stats' => 'link#stats'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
