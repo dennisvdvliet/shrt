@@ -11,6 +11,10 @@ def get_api(path, params={}, headers={})
   get path, params, headers
 end
 
+def response_parsed
+  Oj.load(response.body)
+end
+
 # Smoke test to make sure we follow the specs in the gist
 # https://gist.github.com/vasc/37f36488fc9e959dcaf8
 describe "SmokeTest", type: :request do
@@ -19,6 +23,7 @@ describe "SmokeTest", type: :request do
       it 'returns a 201 after creating a new link' do
         post_api "/shorten", {url: "http://smshunt.co", shortcode: "axaxax"}.to_json, format: :json
         expect(response.status).to eq(201)
+        expect(response_parsed).to have_key("shortcode")
       end
     end
     context 'invalid input' do
