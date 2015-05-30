@@ -4,7 +4,6 @@ source "https://rubygems.org"
 gem "rails", "4.2.1"
 gem "bcrypt", "3.1.10"
 
-gem "pg"
 gem "oj"
 gem "bourbon"
 gem "flutie"
@@ -23,6 +22,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'sqlite3'
   gem "factory_girl_rails"
   gem "rspec-rails", "~> 3.1.0"
   gem "simplecov", require: false
@@ -43,6 +43,7 @@ group :test do
 end
 
 group :production, :staging do
+  gem "pg"
   gem "rack-timeout"
   gem "rails_12factor"
 end
