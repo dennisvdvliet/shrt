@@ -7,10 +7,11 @@ class LinkController < ApplicationController
 
   def create
     link = Link.create!(link_params)
-    render json: link, status: 201
+    render json: {shortcode: link.shortcode}, status: 201
   end
 
   def view
+    @link.track_redirect! rescue true # don't let an error prevent a redirect
     redirect_to @link.url, status: 302
   end
 
