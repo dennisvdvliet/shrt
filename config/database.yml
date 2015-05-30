@@ -1,18 +1,21 @@
 default: &default
-  adapter: postgresql
+  adapter: sqlite3
   encoding: utf8
   host: <%= ENV["DATABASE_HOST"] %>
   pool: <%= ENV["DATABASE_POOL_SIZE"] %>
   username: <%= ENV["DATABASE_USERNAME"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
-  database: <%= ENV["DATABASE_NAME"] %>
 
 development:
+  database: db/development.sqlite3
   <<: *default
 
 test:
   <<: *default
-  database: <%= ENV["TEST_DATABASE_NAME"] %>
+  database: db/test.sqlite3
 
 production:
+  adapter: postgresql
+  database: <%= ENV["DATABASE_NAME"] %>
+
   <<: *default
