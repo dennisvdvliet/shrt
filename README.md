@@ -1,18 +1,59 @@
 # shrt
-==============================================================================
 
-  ## What next?
+A simple url shortner using Rails and sqlite
 
-  - Take a look at the Gemfile to have an idea what you're working with
-  - Copy .env.example to .env and change the environment variables,
-    check out https://github.com/bkeepers/dotenv for help.
-  - Copy Procfile.dev.example to Procfile.dev and change to your liking
-  - Get started with: $ foreman start -f Procfile.dev
+## Setup
+```
+bundle install
+rake db:setup
+mv Procfile.dev.example Procfile.dev
+```
 
-  Built at Impraise
-  https://github.com/impraise/spawnpoint
-  https://www.impraise.com
+## Running
+```
+foreman start -f Procfile.dev
+```
 
-==============================================================================
+## Running test
+```
+bundle exec rspec
+```
 
+## Usage
 
+### Creating a new link
+
+**Request**
+```
+curl -H "Content-Type: application/json" -X POST -d '{"url":"http://impraise.com"}' http://localhost:3000/shorten
+```
+
+**Response**
+```json
+{"shortcode":"ysyxDsa"}
+```
+
+### Getting a link
+**Request**
+```
+curl http://localhost:3000/ysyxDsa
+```
+
+**Response**
+Redirect to http://impraise.com
+
+### Getting stats for a link
+
+**Request**
+```
+curl -H "Content-Type: application/json" http://localhost:3000/ysyxDsa/stats
+```
+
+**Response**
+```json
+{
+  "startDate": "2015-05-30T14:57:18.283Z",
+  "lastSeenDate": "2015-05-30T14:57:18.283Z",
+  "redirectCount": 3
+}
+```
